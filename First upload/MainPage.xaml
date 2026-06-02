@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:FoodDrinkApp.Models"
+             x:Class="FoodDrinkApp.MainPage"
+             Title="Food Journal"
+             BackgroundColor="#F8F8F8">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header with Gradient -->
+        <Grid Padding="16,12,16,8">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#FF8C42" Offset="0.0" />
+                    <GradientStop Color="#FF6B35" Offset="0.5" />
+                    <GradientStop Color="#E85D2B" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Text="Food Journal"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#FFFFFF" />
+
+            <Label Grid.Row="1"
+                   Text="Discover &amp; track your meals"
+                   FontSize="14"
+                   TextColor="#FFF0E6"
+                   Margin="0,5,0,0" />
+        </Grid>
+
+        <!-- Main Content -->
+        <RefreshView Grid.Row="1" x:Name="FoodRefreshView" Refreshing="OnRefreshing">
+            <ScrollView>
+                <Grid Padding="16,12,16,8" ColumnDefinitions="*,*" ColumnSpacing="16" RowSpacing="16">
+
+                    <CollectionView x:Name="FoodCollection"
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="2"
+                                    SelectionMode="None"
+                                    EmptyView="No food records found. Tap + to add new record."
+                                    ItemsLayout="VerticalGrid, 2">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:FoodItem">
+                                <Border StrokeThickness="0"
+                                        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#3A3A3A}"
+                                        Padding="0"
+                                        Margin="4">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="16" />
+                                    </Border.StrokeShape>
+                                    <Border.Shadow>
+                                        <Shadow Brush="#1A000000" Offset="0,2" Radius="6" Opacity="0.08" />
+                                    </Border.Shadow>
+
+                                    <Grid RowDefinitions="120,Auto,Auto,44">
+
+                                        <!-- Image Placeholder -->
+                                        <Grid Grid.Row="0">
+                                            <BoxView BackgroundColor="{AppThemeBinding Light=#FFF0E6, Dark=#4A4A4A}" 
+                                                     CornerRadius="16,16,0,0" />
+                                            <Label Text="{Binding CategoryIcon}"
+                                                   FontSize="42"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                   BackgroundColor="Transparent" />
+                                        </Grid>
+
+                                        <!-- Content Area -->
+                                        <Grid Grid.Row="1" Padding="12,10,12,4" RowDefinitions="Auto,Auto">
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="15"
+                                                   FontAttributes="Bold"
+                                                   TextColor="{AppThemeBinding Light=#333333, Dark=#EEEEEE}"
+                                                   LineBreakMode="TailTruncation"
+                                                   MaxLines="1" />
+
+                                            <Label Grid.Row="1"
+                                                   Text="{Binding CaloriesLabel}"
+                                                   FontSize="12"
+                                                   TextColor="#FF6B35"
+                                                   FontAttributes="Bold"
+                                                   Margin="0,4,0,0" />
+                                        </Grid>
+
+                                        <!-- Category Tag -->
+                                        <Border Grid.Row="2"
+                                                StrokeThickness="0"
+                                                BackgroundColor="{AppThemeBinding Light=#FFF0E6, Dark=#4A4A4A}"
+                                                Padding="8,4"
+                                                Margin="12,0,12,8"
+                                                HorizontalOptions="Start">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="12" />
+                                            </Border.StrokeShape>
+                                            <Label Text="{Binding Category}"
+                                                   FontSize="10"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#FF6B35" />
+                                        </Border>
+
+                                        <!-- Details Button -->
+                                        <Button Grid.Row="3"
+                                                Text="View Details"
+                                                BackgroundColor="#FF6B35"
+                                                TextColor="#FFFFFF"
+                                                FontSize="12"
+                                                FontAttributes="Bold"
+                                                CornerRadius="0"
+                                                CommandParameter="{Binding Id}"
+                                                Clicked="OnDetailsClicked"
+                                                SemanticProperties.Hint="Open nutrition details" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!-- Floating Add Button -->
+                    <Button Grid.Row="0"
+                            Grid.Column="1"
+                            Text="+"
+                            WidthRequest="56"
+                            HeightRequest="56"
+                            CornerRadius="28"
+                            BackgroundColor="#FF6B35"
+                            TextColor="#FFFFFF"
+                            FontSize="24"
+                            FontAttributes="Bold"
+                            HorizontalOptions="End"
+                            VerticalOptions="End"
+                            Margin="0,0,8,20"
+                            Clicked="OnAddClicked"
+                            SemanticProperties.Hint="Add new food record" />
+
+                </Grid>
+            </ScrollView>
+        </RefreshView>
+    </Grid>
+</ContentPage>
