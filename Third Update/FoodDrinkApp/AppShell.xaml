@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="FoodDrinkApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:FoodDrinkApp"
+    Title="Food Journal"
+    FlyoutBehavior="Disabled">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Shell">
+                <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light=#FF6B35, Dark=#1A1A1A}" />
+                <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light=#FFFFFF, Dark=#FFFFFF}" />
+                <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light=#FFFFFF, Dark=#FFFFFF}" />
+                <Setter Property="Shell.DisabledColor" Value="#CCCCCC" />
+                <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Light=#FFD4B8, Dark=#666666}" />
+                <Setter Property="Shell.NavBarHasShadow" Value="True" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light=#FFFFFF, Dark=#2C2C2C}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light=#FF6B35, Dark=#FF8C42}" />
+                <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light=#FF6B35, Dark=#FF8C42}" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light=#CCCCCC, Dark=#666666}" />
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar>
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+
+        <ShellContent
+            Title="Hardware"
+            ContentTemplate="{DataTemplate local:HardwarePage}"
+            Route="HardwarePage" />
+
+        <ShellContent
+            Title="Settings"
+            ContentTemplate="{DataTemplate local:SettingsPage}"
+            Route="SettingsPage" />
+    </TabBar>
+
+</Shell>
